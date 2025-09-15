@@ -1,0 +1,5 @@
+{
+  "name": "B.Tech Exam Prep Assistant",
+  "description": "An intelligent assistant to help B.Tech students generate high-quality study material and practice questions based on their syllabus. Users can provide the syllabus via text or file uploads to get structured notes, MCQs, and subjective questions.",
+  "requestFramePermissions": []
+}
