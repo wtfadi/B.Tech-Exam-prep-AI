@@ -1,75 +1,99 @@
 
-import React, { useCallback } from 'react';
+import React from 'react';
 import { SyllabusData } from '../types';
 
 interface SyllabusInputProps {
   syllabus: SyllabusData;
   setSyllabus: React.Dispatch<React.SetStateAction<SyllabusData>>;
+  mode: 'syllabus' | 'reference';
+  stepNumber: number;
+  title: string;
+  description?: string;
 }
 
-const SyllabusInput: React.FC<SyllabusInputProps> = ({ syllabus, setSyllabus }) => {
+const SyllabusInput: React.FC<SyllabusInputProps> = ({ 
+  syllabus, 
+  setSyllabus, 
+  mode, 
+  stepNumber,
+  title,
+  description 
+}) => {
+  const isSyllabus = mode === 'syllabus';
+
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setSyllabus((prev) => ({ ...prev, text: e.target.value }));
+    if (isSyllabus) {
+      setSyllabus((prev) => ({ ...prev, text: e.target.value }));
+    }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      setSyllabus((prev) => ({ ...prev, files: [...prev.files, ...Array.from(e.target.files)] }));
+      const newFiles = Array.from(e.target.files);
+      setSyllabus((prev) => ({
+        ...prev,
+        [isSyllabus ? 'files' : 'referenceFiles']: [...prev[isSyllabus ? 'files' : 'referenceFiles'], ...newFiles]
+      }));
     }
   };
-  
-  const removeFile = useCallback((index: number) => {
-    setSyllabus(prev => ({
-      ...prev,
-      files: prev.files.filter((_, i) => i !== index)
-    }));
-  }, [setSyllabus]);
 
+  const removeFile = (index: number) => {
+    setSyllabus((prev) => ({
+      ...prev,
+      [isSyllabus ? 'files' : 'referenceFiles']: prev[isSyllabus ? 'files' : 'referenceFiles'].filter((_, i) => i !== index)
+    }));
+  };
+
+  const currentFiles = isSyllabus ? syllabus.files : syllabus.referenceFiles;
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">1. Enter Your Syllabus</h2>
-      <textarea
-        value={syllabus.text}
-        onChange={handleTextChange}
-        placeholder="e.g., Data Structures: Arrays, Linked Lists, Stacks, Queues, Trees, Graphs, Hashing..."
-        className="w-full h-40 p-4 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
-      />
+    <div className="space-y-5 h-full flex flex-col">
+      <div className="flex items-center gap-3">
+        <span className="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-black text-sm">
+          {stepNumber}
+        </span>
+        <h3 className="font-bold text-lg text-slate-800 dark:text-white">{title}</h3>
+      </div>
       
-      <div>
-        <h3 className="text-xl font-medium text-gray-700 dark:text-gray-300">Optional: Upload Supporting Files</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Upload PDFs, PowerPoints, or images of notes and books.</p>
-        <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md">
-          <div className="space-y-1 text-center">
-             <svg className="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            <div className="flex text-sm text-gray-600 dark:text-gray-400">
-              <label htmlFor="file-upload" className="relative cursor-pointer bg-white dark:bg-gray-700 rounded-md font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-                <span>Upload a file</span>
-                <input id="file-upload" name="file-upload" type="file" className="sr-only" multiple onChange={handleFileChange} accept=".pdf,.ppt,.pptx,.jpg,.jpeg,.png"/>
-              </label>
-              <p className="pl-1">or drag and drop</p>
-            </div>
-            <p className="text-xs text-gray-500 dark:text-gray-500">PDF, PPT, PNG, JPG up to 10MB</p>
-          </div>
-        </div>
+      {description && <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">{description}</p>}
 
-        {syllabus.files.length > 0 && (
-          <div className="mt-4">
-            <h4 className="font-semibold">Uploaded files:</h4>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-              {syllabus.files.map((file, index) => (
-                <li key={index} className="text-sm text-gray-700 dark:text-gray-300 flex justify-between items-center">
-                  <span>{file.name}</span>
-                  <button onClick={() => removeFile(index)} className="text-red-500 hover:text-red-700 ml-4 font-bold">
-                    &times;
-                  </button>
-                </li>
-              ))}
-            </ul>
+      {isSyllabus && (
+        <textarea
+          value={syllabus.text}
+          onChange={handleTextChange}
+          placeholder="Paste text syllabus here..."
+          className="w-full min-h-[120px] p-4 text-sm bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition-all resize-none"
+        />
+      )}
+
+      <div className="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-indigo-400 rounded-xl p-6 transition-all cursor-pointer">
+        <input 
+          type="file" 
+          multiple 
+          className="absolute inset-0 opacity-0 cursor-pointer" 
+          onChange={handleFileChange}
+          accept=".pdf,.ppt,.pptx,.jpg,.jpeg,.png,.txt"
+        />
+        <div className="text-center space-y-1">
+          <svg className="w-8 h-8 mx-auto text-slate-400 group-hover:text-indigo-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+          </svg>
+          <p className="text-xs font-bold text-slate-600 dark:text-slate-300">Add {isSyllabus ? 'Syllabus' : 'Notes'} Files</p>
+        </div>
+      </div>
+
+      <div className="flex-grow overflow-y-auto max-h-[150px] space-y-2 pr-1">
+        {currentFiles.map((file, idx) => (
+          <div key={idx} className="flex items-center justify-between p-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg group">
+            <div className="flex items-center gap-2 overflow-hidden">
+              <div className="w-2 h-2 rounded-full bg-indigo-500 shrink-0"></div>
+              <span className="text-[10px] font-bold truncate max-w-[140px]">{file.name}</span>
+            </div>
+            <button onClick={() => removeFile(idx)} className="text-slate-400 hover:text-rose-500">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );

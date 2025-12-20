@@ -8,12 +8,20 @@ export enum Difficulty {
 export interface SyllabusData {
   text: string;
   files: File[];
+  referenceFiles: File[];
 }
 
 export interface QuestionConfigData {
   mcqs: number;
   subjective: number;
   difficulty: Difficulty;
+  targetUnits: string;
+}
+
+export interface UnitSummary {
+  id: string;
+  title: string;
+  description: string;
 }
 
 export interface Note {
