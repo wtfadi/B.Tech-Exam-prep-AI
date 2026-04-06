@@ -1,20 +1,103 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# 📚 B.Tech Exam Prep AI
 
-This contains everything you need to run your app locally.
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=22&duration=2000&pause=1000&color=FFFFFF&center=true&vCenter=true&width=600&lines=AI+Powered+Exam+Prep;Generate+Notes+%7C+Questions+%7C+Concepts;Built+with+Gemini+%F0%9F%A7%A0" />
+</p>
 
-View your app in AI Studio: https://ai.studio/apps/drive/1Eo-5xksek8m6vrYy1vvbcx2yUBdO5w5L
+---
 
-## Run Locally
+## 🚀 About the Project
 
-**Prerequisites:**  Node.js
+AI-powered platform that converts **B.Tech syllabus into exam-ready content** using **Gemini AI**.
 
+---
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🧠 Tech Stack
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,ts,vite,nodejs,js" />
+</p>
+
+---
+
+## ⚡ Features
+
+* 🤖 AI-generated study material
+* ❓ Question generator (short/long)
+* 📘 Syllabus-based learning
+* 🧠 Easy explanations
+* ⚡ Fast UI with Vite
+
+---
+
+## 📊 GitHub Stats
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=wtfadi&show_icons=true&theme=tokyonight&hide_border=true" height="170"/>
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=wtfadi&theme=tokyonight&hide_border=true" height="170"/>
+</p>
+
+---
+
+## 📈 Top Languages
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=wtfadi&layout=compact&theme=tokyonight&hide_border=true"/>
+</p>
+
+---
+
+## 🏆 Badges
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/wtfadi/B.Tech-Exam-prep-AI?style=for-the-badge&color=black"/>
+  <img src="https://img.shields.io/github/forks/wtfadi/B.Tech-Exam-prep-AI?style=for-the-badge&color=black"/>
+  <img src="https://img.shields.io/github/issues/wtfadi/B.Tech-Exam-prep-AI?style=for-the-badge&color=black"/>
+  <img src="https://img.shields.io/github/license/wtfadi/B.Tech-Exam-prep-AI?style=for-the-badge&color=black"/>
+</p>
+
+---
+
+## 🐍 Contribution Snake
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/wtfadi/wtfadi/output/github-contribution-grid-snake.svg" />
+</p>
+
+---
+
+## 🧩 Project Setup
+
+```bash
+git clone https://github.com/wtfadi/B.Tech-Exam-prep-AI.git
+cd B.Tech-Exam-prep-AI
+npm install
+npm run dev
+```
+
+---
+
+## 🔑 Environment
+
+```env
+GEMINI_API_KEY=your_api_key
+```
+
+---
+
+## 👨‍💻 Author
+
+**Adi**
+[https://github.com/wtfadi](https://github.com/wtfadi)
+
+---
+
+## ⭐ Support
+
+If you like this project:
+👉 Drop a ⭐
+
+---
+
+Just say: **"make it god-level"** 😎
