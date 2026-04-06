@@ -99,5 +99,3 @@ If you like this project:
 👉 Drop a ⭐
 
 ---
-
-Just say: **"make it god-level"** 😎
